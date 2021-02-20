@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.mintools.cn","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="点击此处，浏览效果更好  版权声明：本文为博主 @残灯飞雪的原创文章，欢迎转载，传播知识。著作权归作者所有，商业转载请联系作者获得授权，非商业转载请注明作者和出处并留言告知博主，方便文章有误改正之后能找到原文！！！原文链接：blog.mintools.cn  即将毕业的大四狗，一直想做一个自己的博客网站，用来管理和分享知识，当然这也是一张展示自己的名片，一份精彩全面的简历，毕竟在某种程度上展示着个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Hexo在GitHub  Pages上搭建部署免费的个人博客网站（上：GitHub搭建）——最详细全面解读教程（没有之一）">
+<meta property="og:url" content="http://blog.mintools.cn/zh-CN/2017-10-18-%E4%BD%BF%E7%94%A8Hexo%E5%9C%A8GitHubPages%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%B8%8A.html">
+<meta property="og:site_name" content="残灯飞雪 的博客地带">
+<meta property="og:description" content="点击此处，浏览效果更好  版权声明：本文为博主 @残灯飞雪的原创文章，欢迎转载，传播知识。著作权归作者所有，商业转载请联系作者获得授权，非商业转载请注明作者和出处并留言告知博主，方便文章有误改正之后能找到原文！！！原文链接：blog.mintools.cn  即将毕业的大四狗，一直想做一个自己的博客网站，用来管理和分享知识，当然这也是一张展示自己的名片，一份精彩全面的简历，毕竟在某种程度上展示着个">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-dcf71efaed4faf07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-879bc59566a9d93f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-7d66881d0de74a15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-ce6f9b1e0d3217f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-9a6277e901a5b581.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-e539690d618fb5a4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-9cc117e1c56054c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-f381318a74ffb90e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-665a9a73649f413a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-d6aeeab23d1f6ca5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-c54c3b101df7ab4f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-b241c8e01e17bb16.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-9bbbd6ed0358f0d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-96cfc8d4134d47de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-ce9fe60f37bd5a14.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-dc0b0430b0380369.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-f480b0324d5bebe8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-c8c81998fb05a73f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-75bbd7cec03d8a5b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-c1e444f06c3f9d0e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-e4d1ba22c150b962.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-a2239a870a63cad8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-ee50310d8110aec3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-7ae9620e58819371.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8537372-dcf71efaed4faf07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2017-10-18T10:18:18.000Z">
+<meta property="article:modified_time" content="2021-02-13T07:15:15.000Z">
+<meta property="article:author" content="残灯飞雪">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="GitHub">
+<meta property="article:tag" content="博客">
+<meta property="article:tag" content="建站">
+<meta property="article:tag" content="网站搭建">
+<meta property="article:tag" content="教程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/8537372-dcf71efaed4faf07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+<link rel="canonical" href="http://blog.mintools.cn/zh-CN/2017-10-18-%E4%BD%BF%E7%94%A8Hexo%E5%9C%A8GitHubPages%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%B8%8A.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>使用Hexo在GitHub  Pages上搭建部署免费的个人博客网站（上：GitHub搭建）——最详细全面解读教程（没有之一） | 残灯飞雪 的博客地带</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?BTodoS48wq";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">残灯飞雪 的博客地带</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活依旧美好，人生还需前行！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.mintools.cn/zh-CN/2017-10-18-%E4%BD%BF%E7%94%A8Hexo%E5%9C%A8GitHubPages%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%B8%8A.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="残灯飞雪">
+      <meta itemprop="description" content="残灯飞雪『Elvis Rothschild』的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="残灯飞雪 的博客地带">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用Hexo在GitHub  Pages上搭建部署免费的个人博客网站（上：GitHub搭建）——最详细全面解读教程（没有之一）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-10-18 18:18:18" itemprop="dateCreated datePublished" datetime="2017-10-18T18:18:18+08:00">2017-10-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-13 15:15:15" itemprop="dateModified" datetime="2021-02-13T15:15:15+08:00">2021-02-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BB%BA%E7%AB%99%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">建站教程</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/zh-CN/2017-10-18-%E4%BD%BF%E7%94%A8Hexo%E5%9C%A8GitHubPages%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%B8%8A.html" class="post-meta-item leancloud_visitors" data-flag-title="使用Hexo在GitHub  Pages上搭建部署免费的个人博客网站（上：GitHub搭建）——最详细全面解读教程（没有之一）" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/zh-CN/2017-10-18-%E4%BD%BF%E7%94%A8Hexo%E5%9C%A8GitHubPages%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%B8%8A.html#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="zh-CN/2017-10-18-使用Hexo在GitHubPages上搭建博客上.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a href="http://blog.mintools.cn/zh-CN/2017-10-18-%E4%BD%BF%E7%94%A8Hexo%E5%9C%A8GitHubPages%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%B8%8A.html"><strong>点击此处，浏览效果更好</strong></a></p>
+<blockquote>
+<p>版权声明：本文为博主 @残灯飞雪<br>的原创文章，欢迎转载，传播知识。著作权归作者所有，商业转载请联系作者获得授权，非商业转载请注明作者和出处并留言告知博主，方便文章有误改正之后能找到原文！！！<br>原文链接：<a href="http://blog.mintools.cn/">blog.mintools.cn</a></p>
+</blockquote>
+<p>即将毕业的大四狗，一直想做一个自己的博客网站，用来管理和分享知识，当然这也是一张展示自己的名片，一份精彩全面的简历，毕竟在某种程度上展示着个人的能力、经验、经历，体现了个人知识的深度和广度。</p>
+<h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>本章主要讲在GitHub上搭建好博客网站部分，在网页部分主要通过上传开源的项目文件先直接部署以正常显示。我会在下章详细讲解用Hexo部署开源博客网站，以及在后期日常如何写博客文章等。</p>
+<p>接下来，我会详细介绍搭建个人网站的具体流程、以及可能会遇到的问题，从注册一个域名（可独立访问的路径网址），到创建一个空间并编写一个网站代码，然后绑定域名、设置域名解析，可以通过域名正常访问这个网站。</p>
+<p>整个流程都是自己摸索后的操作过程记录，真实案例，操作简单，适合没有开发经验的小白。如有不明白的地方，欢迎到 <a href="http://blog.mintools.cn/">blog.mintools.cn</a> 留言询问。</p>
+<h3 id="完成效果"><a href="#完成效果" class="headerlink" title="完成效果"></a>完成效果</h3><p><img src="http://upload-images.jianshu.io/upload_images/8537372-dcf71efaed4faf07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<h3 id="总体思路"><a href="#总体思路" class="headerlink" title="总体思路"></a>总体思路</h3><ol>
+<li>购买域名</li>
+<li>创建GitHub个人网站项目和代码仓库</li>
+<li>上传个人网站网页到GitHub仓库</li>
+<li>绑定域名，并设置域名解析，关联域名和网站代码仓库</li>
+</ol>
+<h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><h4 id="1-购买域名"><a href="#1-购买域名" class="headerlink" title="1. 购买域名"></a>1. 购买域名</h4><h5 id="1-1-向域名服务提供商购买域名"><a href="#1-1-向域名服务提供商购买域名" class="headerlink" title="1.1 向域名服务提供商购买域名"></a>1.1 向域名服务提供商购买域名</h5><p>国内：<a target="_blank" rel="noopener" href="https://wanwang.aliyun.com/">万网</a>（被阿里云收购在旗下）、<a target="_blank" rel="noopener" href="https://dnspod.cloud.tencent.com/">腾讯云</a>、<a target="_blank" rel="noopener" href="http://www.xinnet.com/">新网</a>等<br>国外：<a target="_blank" rel="noopener" href="https://sg.godaddy.com/zh">GoDaddy</a>（狗爹爹的广告真心多）等</p>
+<p>域名可以从这些域名服务提供商进行购买，价格上综合比较之后，阿里云和腾讯云的价格是最便宜的，特别是阿里云。虽然狗爹爹的首年费用比阿里云还低，但是第二年开始以后的续费相当贵，所以价格上还是阿里云最棒，况且阿里云的域名服务也是很好的，毕竟收购了国内巨头的万网。</p>
+<p><a target="_blank" rel="noopener" href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=g2jskv3u&utm_source=g2jskv3u"><strong>点击此处可以免费领取阿里云产品的优惠券</strong></a></p>
+<p>在域名查询栏中搜索自己想要的域名，域名查询没有被注册的话，就可以直接加入清单购买了。<br><img src="http://upload-images.jianshu.io/upload_images/8537372-879bc59566a9d93f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8537372-7d66881d0de74a15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>登录阿里云账户，进行购买、付费操作。相信大家都要淘宝账号，可以直接使用账号登录的，很方便。<br><img src="http://upload-images.jianshu.io/upload_images/8537372-ce6f9b1e0d3217f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>购买确定订单时，注意要选择域名持有人信息（个人还是企业），还有阿里云会赠送免费版的企业邮箱，可以开通50个邮箱账号，且每个账号有5G邮箱容量和2G网盘容量。<br><img src="http://upload-images.jianshu.io/upload_images/8537372-9a6277e901a5b581.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8537372-e539690d618fb5a4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>付费建议直接支付宝，快捷方便。<br><img src="http://upload-images.jianshu.io/upload_images/8537372-9cc117e1c56054c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>购买成功后，域名会进入域名实名认证，如果是个人，只需填写身份证之类简单个人实名信息，大约等待1~3天就好了，我的只用了不到1天就通过了。如果是企业就需要营业执照副本或者组织结构代码证之类，需要材料较多。我想看本篇文章的小白们大都是个人的吧。<br><img src="http://upload-images.jianshu.io/upload_images/8537372-f381318a74ffb90e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<h5 id="1-2-温馨提示1"><a href="#1-2-温馨提示1" class="headerlink" title="1.2 温馨提示1"></a>1.2 温馨提示1</h5><p>购买域名的时候需要进行实名认证，搭建网站还要买主机，然后就要将域名和主机一起进行审核备案了。有很多的小伙伴听说国际域名绑定境外的主机是不需要备案的，觉得很棒棒，但是国内的备案，备案审核速度虽说有点慢的，3~15天就好，上传证件之类的也要花点时间，不够自由。但是如果网站的目标群体主要是国内用户的话，还是老老实实备案注册，免得到时候被限制访问。<br>（PS：当然本篇文章介绍的用GitHub，所以不需要购买主机。）</p>
+<p>空间有免费空间，也有收费空间。免费的不够稳定，而且大都是不安全的，有的甚至在你的网站上加广告，所以如果是搭建其他网站需要购买主机，还是建议大家买正规的，比如阿里云、华为云的。</p>
+<p>当然，如果真说又免费又稳定的空间的话，GitHub算是这样的存在。GitHub允许上传个人网站项目并自定义域名，而且又有稳定的服务，的确是最好的选择。所以国内现在也有很多类似的服务，例如GitCafe、coding、CSDN的CODE、开源中国OSChina等，但GitHub依旧是主流存在。</p>
+<h4 id="2-创建GitHub个人网站项目和代码仓库"><a href="#2-创建GitHub个人网站项目和代码仓库" class="headerlink" title="2. 创建GitHub个人网站项目和代码仓库"></a>2. 创建GitHub个人网站项目和代码仓库</h4><h5 id="2-1-GitHub简介"><a href="#2-1-GitHub简介" class="headerlink" title="2.1 GitHub简介"></a>2.1 GitHub简介</h5><p>GitHub（<a target="_blank" rel="noopener" href="https://github.com/">https://github.com/</a> ） 是一个面向开源及私有软件项目的托管平台（或者说远程代码仓库）。GitHub是一个全世界程序员聚集起来的地方，大家互相分享自己的代码，提升别人，也提升自我。大家都在为着开源社区努力着。</p>
+<p>这里我们使用GitHub上的开源项目搭建个人博客，无需购买服务器，所以没有数据库访问，很适合建立自己的博客或者个人网站，当然简单公司介绍静态网站也是可以的，但大型网站、动态网站是不支持的。</p>
+<p>想要了解GitHub的基础用法，可以简单查看 <a target="_blank" rel="noopener" href="http://stormzhang.com/github/2016/05/25/learn-github-from-zero1/">[从0开始学习 GITHUB 系列之初识 GITHUB]</a> 与 <a target="_blank" rel="noopener" href="http://stormzhang.com/github/2016/05/26/learn-github-from-zero2/">[从0开始学习 GITHUB 系列之加入 GITHUB]</a>，语言通俗易懂，讲的也基础简单，可以初步了解一下GitHub。</p>
+<h5 id="2-2-注册GitHub账号"><a href="#2-2-注册GitHub账号" class="headerlink" title="2.2 注册GitHub账号"></a>2.2 注册GitHub账号</h5><p>使用<a target="_blank" rel="noopener" href="https://github.com/">GitHub</a>，首先需要拥有一个GitHub账号，没有的赶紧注册一个，超级好用，而且对于一个优秀程序猿的必备，有的公司甚至将此列入招聘要求。</p>
+<p>在注册页面需要填用户名、邮箱、密码，这个用户名如果你填写的是username，以后在GitHub 搭建博客的时候默认生成的博客地址就是 <a target="_blank" rel="noopener" href="http://username.github.io/">http://username.github.io</a> ，所以给自己取个好点的用户名吧。</p>
+<p>现在已经有了github账号，且用户名是username.<br><img src="http://upload-images.jianshu.io/upload_images/8537372-665a9a73649f413a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<h5 id="2-3-创建仓库，新建个人网站项目"><a href="#2-3-创建仓库，新建个人网站项目" class="headerlink" title="2.3 创建仓库，新建个人网站项目"></a>2.3 创建仓库，新建个人网站项目</h5><p>登录GitHub之后，点击New repository创建项目仓库。<br><img src="http://upload-images.jianshu.io/upload_images/8537372-d6aeeab23d1f6ca5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>由于我们是搭建的是一个 个人网站项目，所以仓库的名称需要按照个人网站项目的规定，Repository name设置为 username.github.io。这是GitHub分配给每个用户的GitHub Pages地址，要使用它只用新建一个名字为 username.github.io 的仓库就行了，仓库里面存放你的个人主页代码。例如，我的GitHub用户名是Elvis-Rothschild，那我就要填写 Elvis-Rothschild.github.io。然后选择公开模式，接着点击创建仓库按钮。<br><img src="http://upload-images.jianshu.io/upload_images/8537372-c54c3b101df7ab4f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>仓库建好之后，应该是这样的。进入了项目主页面,点击设置点击settings按钮。<br><img src="http://upload-images.jianshu.io/upload_images/8537372-b241c8e01e17bb16.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"><br>进入settings页面，选择一个模板，点击【Choose a theme 】来发布生成主题页面。<br><img src="http://upload-images.jianshu.io/upload_images/8537372-9bbbd6ed0358f0d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8537372-96cfc8d4134d47de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8537372-ce9fe60f37bd5a14.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>现在我们在github上的主页就搭建完成了，只要在地址栏输入 username.github.io 就可以访问你的主页了。<br><img src="http://upload-images.jianshu.io/upload_images/8537372-dc0b0430b0380369.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<h5 id="温馨提示2"><a href="#温馨提示2" class="headerlink" title="温馨提示2"></a>温馨提示2</h5><p>尽管GitHub个人网站项目是免费的，但还是有一些限制的，不过对大多数人来说，完全够用了。</p>
+<ol>
+<li>单个仓库大小不超过1GB，上传单个文件大小不能超过100MB，如果通过浏览器上传不能超过25MB</li>
+<li>个人网站项目也不例外，最大空间1GB</li>
+<li>个人网站项目每个月访问请求数不能超过10万次，总流量不能超过100GB</li>
+<li>个人网站项目一小时创建数量不能超过10个</li>
+</ol>
+<p>当然了，这些政策可能随时改变，可以通过此网页查看最新政策。<br><a target="_blank" rel="noopener" href="https://help.github.com/articles/what-is-github-pages/#recommended-limits">https://help.github.com/articles/what-is-github-pages/#recommended-limits</a></p>
+<h3 id="3-上传个人网站网页到GitHub仓库"><a href="#3-上传个人网站网页到GitHub仓库" class="headerlink" title="3. 上传个人网站网页到GitHub仓库"></a>3. 上传个人网站网页到GitHub仓库</h3><h5 id="3-1-编写网站代码（或用开源的网站项目）"><a href="#3-1-编写网站代码（或用开源的网站项目）" class="headerlink" title="3.1 编写网站代码（或用开源的网站项目）"></a>3.1 编写网站代码（或用开源的网站项目）</h5><p>自动生成的页面，肯定是不完美的，我们希望能够自己设计自己的个人网站。因此，我们可以自己设计编写一个网页文件，命名为index.html。然后上传到GitHub个人网站项目上就可以了。<br><img src="http://upload-images.jianshu.io/upload_images/8537372-f480b0324d5bebe8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>当然，如果你目前没有编写能力，GitHub上也有很多开源的项目。要知道GitHub是全世界最大的开源项目社区，关于网站制作的项目非常多。比较著名开源主题有hexo、jekyll等。我使用是开源项目NexT主题。</p>
+<p>这里，你也可以先拷贝我的，进入我的项目 <a target="_blank" rel="noopener" href="https://github.com/Elvis-Rothschild/Elvis-Rothschild.github.io/new/master">https://github.com/Elvis-Rothschild/Elvis-Rothschild.github.io/new/master</a> ，然后下载源码。解压之后，拿到里面的index.html文件。<br><img src="http://upload-images.jianshu.io/upload_images/8537372-c8c81998fb05a73f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8537372-75bbd7cec03d8a5b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>实在不行，这步可以跳过，就先用GitHub生成的主题模版，只要能正常显示就可以，在下章会为大家详细讲解用Hexo部署自己的博客网站。</p>
+<h5 id="3-2-上传index-html文件"><a href="#3-2-上传index-html文件" class="headerlink" title="3.2 上传index.html文件"></a>3.2 上传index.html文件</h5><p>进入个人网站项目主页，点击上传文件Upload files按钮，进入上传文件页面，将index.html文件拖入蓝色大圈圈区域，点击提交按钮即可提交成功。此时打开网址 username.github.io 就可以看到主页已经改变为新上传的网页了。<br><img src="http://upload-images.jianshu.io/upload_images/8537372-c1e444f06c3f9d0e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>当然，为了防止自己编辑的内容与拷贝来的有冲突，可以点击右上角的fork，创建该项目的一个分支，自己进行编辑，自己编辑的内容不会和项目创建者的版本相冲突。</p>
+<h3 id="4-绑定域名，并设置域名解析，关联域名和网站代码仓库"><a href="#4-绑定域名，并设置域名解析，关联域名和网站代码仓库" class="headerlink" title="4. 绑定域名，并设置域名解析，关联域名和网站代码仓库"></a>4. 绑定域名，并设置域名解析，关联域名和网站代码仓库</h3><p>网页上传成功了，GitHub为我们每个注册的用户提供了一个唯一的 username.github.io 网址，GitHub服务器会帮我们托管这个 username.github.io 所用到的全部代码，自动运行，所以我们就不需要购买服务器或者云主机来自己运行了。但是，我们之所以购买域名，就是不想总是通过 username.github.io 来访问我们的个人网站，而是希望通过自己的独立域名来访问。</p>
+<p>那么，我们就一起来把 username.github.io 和自己购买的域名相关联吧。</p>
+<h5 id="4-1-在GitHub端将域名绑定到-username-github-io"><a href="#4-1-在GitHub端将域名绑定到-username-github-io" class="headerlink" title="4.1 在GitHub端将域名绑定到 username.github.io"></a>4.1 在GitHub端将域名绑定到 username.github.io</h5><p>点击我们的个人网站项目设置进入settings按钮，进入settings页面，找到【Custom domain】选项，输入我们在阿里云上购买的域名，然后点击Save保存。完成后返回到仓库，可以发现多了一个叫CNAME的文件，其内容就是刚才填写的在阿里云上购买的域名。<br><img src="http://upload-images.jianshu.io/upload_images/8537372-e4d1ba22c150b962.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<h5 id="4-2-fork分支项目设置（未创建fork则跳过）"><a href="#4-2-fork分支项目设置（未创建fork则跳过）" class="headerlink" title="4.2 fork分支项目设置（未创建fork则跳过）"></a>4.2 fork分支项目设置（未创建fork则跳过）</h5><p>如果创建了fork分支项目，那么还需在设置里将fork项目名称修改为 username.github.io。<br><img src="http://upload-images.jianshu.io/upload_images/8537372-a2239a870a63cad8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"><br>同时，在该项目下新建文件，命名为CNAME，内容为在阿里云上购买的域名。</p>
+<h5 id="4-3-在域名端将DNS指向-username-github-io"><a href="#4-3-在域名端将DNS指向-username-github-io" class="headerlink" title="4.3 在域名端将DNS指向 username.github.io"></a>4.3 在域名端将DNS指向 username.github.io</h5><p>接着，我们还要将购买的域名解析到这个网站项目上。打开阿里云管理控制台，进入域名解析设置界面，点击添加解析。<br><img src="http://upload-images.jianshu.io/upload_images/8537372-ee50310d8110aec3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>进入如下页面，添加如下信息：</p>
+<p>记录类型：CNAME，主机记录：@，记录值一定要是 username.github.io，TTL：一般都是10分钟。<br><img src="http://upload-images.jianshu.io/upload_images/8537372-7ae9620e58819371.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>稍等片刻，域名解析就会生效。</p>
+<h5 id="4-4-解析成功"><a href="#4-4-解析成功" class="headerlink" title="4.4 解析成功"></a>4.4 解析成功</h5><p>解析成功，你的网站就建立成功了。在浏览器地址栏输入：http://域名（例如：<a href="http://blog.mintools.cn/">http://blog.mintools.cn</a> ），就可以转到你自己的网站了。<br><img src="http://upload-images.jianshu.io/upload_images/8537372-dcf71efaed4faf07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>当然由于是开源的项目，此时的界面是GitHub默认主题的样式和内容，我会在下章讲解如何进一步的修改，以及往其中添加新的页面，如何进行文章的更新等等。</p>
+<blockquote>
+<p>版权声明：本文为博主 @残灯飞雪<br>的原创文章，欢迎转载，传播知识。著作权归作者所有，商业转载请联系作者获得授权，非商业转载请注明作者和出处并留言告知博主，方便文章有误改正之后能找到原文！！！<br>原文链接：<a href="http://blog.mintools.cn/">blog.mintools.cn</a></p>
+</blockquote>
+<h4 id="其他精彩文章："><a href="#其他精彩文章：" class="headerlink" title="其他精彩文章："></a>其他精彩文章：</h4><p><a href="http://blog.mintools.cn/zh-CN/2017-10-20-%E4%BD%BF%E7%94%A8Hexo%E5%9C%A8GitHubPages%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%B8%8B.html"><strong>使用Hexo在GitHub Pages上搭建部署免费的个人博客网站（下：Hexo部署）——最详细全面解读教程（没有之一）</strong></a></p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/uploads/wechatpay.png" alt="残灯飞雪 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/uploads/alipay.jpg" alt="残灯飞雪 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+              <a href="/tags/GitHub/" rel="tag"># GitHub</a>
+              <a href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag"># 博客</a>
+              <a href="/tags/%E5%BB%BA%E7%AB%99/" rel="tag"># 建站</a>
+              <a href="/tags/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/" rel="tag"># 网站搭建</a>
+              <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"># 教程</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/zh-CN/2017-10-20-%E4%BD%BF%E7%94%A8Hexo%E5%9C%A8GitHubPages%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%B8%8B.html" rel="next" title="使用Hexo在GitHub  Pages上搭建部署免费的个人博客网站（下：Hexo部署）——最详细全面解读教程（没有之一）">
+      使用Hexo在GitHub  Pages上搭建部署免费的个人博客网站（下：Hexo部署）——最详细全面解读教程（没有之一） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E6%88%90%E6%95%88%E6%9E%9C"><span class="nav-number">2.</span> <span class="nav-text">完成效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E6%80%9D%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">总体思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E6%AD%A5%E9%AA%A4"><span class="nav-number">4.</span> <span class="nav-text">具体步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%B4%AD%E4%B9%B0%E5%9F%9F%E5%90%8D"><span class="nav-number">4.1.</span> <span class="nav-text">1. 购买域名</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-%E5%90%91%E5%9F%9F%E5%90%8D%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E5%95%86%E8%B4%AD%E4%B9%B0%E5%9F%9F%E5%90%8D"><span class="nav-number">4.1.1.</span> <span class="nav-text">1.1 向域名服务提供商购买域名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-%E6%B8%A9%E9%A6%A8%E6%8F%90%E7%A4%BA1"><span class="nav-number">4.1.2.</span> <span class="nav-text">1.2 温馨提示1</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%88%9B%E5%BB%BAGitHub%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99%E9%A1%B9%E7%9B%AE%E5%92%8C%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93"><span class="nav-number">4.2.</span> <span class="nav-text">2. 创建GitHub个人网站项目和代码仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-GitHub%E7%AE%80%E4%BB%8B"><span class="nav-number">4.2.1.</span> <span class="nav-text">2.1 GitHub简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-%E6%B3%A8%E5%86%8CGitHub%E8%B4%A6%E5%8F%B7"><span class="nav-number">4.2.2.</span> <span class="nav-text">2.2 注册GitHub账号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%EF%BC%8C%E6%96%B0%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99%E9%A1%B9%E7%9B%AE"><span class="nav-number">4.2.3.</span> <span class="nav-text">2.3 创建仓库，新建个人网站项目</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%A9%E9%A6%A8%E6%8F%90%E7%A4%BA2"><span class="nav-number">4.2.4.</span> <span class="nav-text">温馨提示2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%B8%8A%E4%BC%A0%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99%E7%BD%91%E9%A1%B5%E5%88%B0GitHub%E4%BB%93%E5%BA%93"><span class="nav-number">5.</span> <span class="nav-text">3. 上传个人网站网页到GitHub仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-%E7%BC%96%E5%86%99%E7%BD%91%E7%AB%99%E4%BB%A3%E7%A0%81%EF%BC%88%E6%88%96%E7%94%A8%E5%BC%80%E6%BA%90%E7%9A%84%E7%BD%91%E7%AB%99%E9%A1%B9%E7%9B%AE%EF%BC%89"><span class="nav-number">5.0.1.</span> <span class="nav-text">3.1 编写网站代码（或用开源的网站项目）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-%E4%B8%8A%E4%BC%A0index-html%E6%96%87%E4%BB%B6"><span class="nav-number">5.0.2.</span> <span class="nav-text">3.2 上传index.html文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D%EF%BC%8C%E5%B9%B6%E8%AE%BE%E7%BD%AE%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%EF%BC%8C%E5%85%B3%E8%81%94%E5%9F%9F%E5%90%8D%E5%92%8C%E7%BD%91%E7%AB%99%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93"><span class="nav-number">6.</span> <span class="nav-text">4. 绑定域名，并设置域名解析，关联域名和网站代码仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-%E5%9C%A8GitHub%E7%AB%AF%E5%B0%86%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A%E5%88%B0-username-github-io"><span class="nav-number">6.0.1.</span> <span class="nav-text">4.1 在GitHub端将域名绑定到 username.github.io</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-fork%E5%88%86%E6%94%AF%E9%A1%B9%E7%9B%AE%E8%AE%BE%E7%BD%AE%EF%BC%88%E6%9C%AA%E5%88%9B%E5%BB%BAfork%E5%88%99%E8%B7%B3%E8%BF%87%EF%BC%89"><span class="nav-number">6.0.2.</span> <span class="nav-text">4.2 fork分支项目设置（未创建fork则跳过）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-%E5%9C%A8%E5%9F%9F%E5%90%8D%E7%AB%AF%E5%B0%86DNS%E6%8C%87%E5%90%91-username-github-io"><span class="nav-number">6.0.3.</span> <span class="nav-text">4.3 在域名端将DNS指向 username.github.io</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-4-%E8%A7%A3%E6%9E%90%E6%88%90%E5%8A%9F"><span class="nav-number">6.0.4.</span> <span class="nav-text">4.4 解析成功</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%B2%BE%E5%BD%A9%E6%96%87%E7%AB%A0%EF%BC%9A"><span class="nav-number">6.1.</span> <span class="nav-text">其他精彩文章：</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">残灯飞雪</p>
+  <div class="site-description" itemprop="description">残灯飞雪『Elvis Rothschild』的博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Elvis-Rothschild" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Elvis-Rothschild" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://blog.csdn.net/francisdar" title="CSDN → http:&#x2F;&#x2F;blog.csdn.net&#x2F;francisdar" rel="noopener" target="_blank"><i class="hand-o-right fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.jianshu.com/u/1904efb40a01" title="简书 → http:&#x2F;&#x2F;www.jianshu.com&#x2F;u&#x2F;1904efb40a01" rel="noopener" target="_blank"><i class="hand-o-right fa-fw"></i>简书</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/xiao-guo-chun" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;xiao-guo-chun" rel="noopener" target="_blank"><i class="hand-o-right fa-fw"></i>知乎</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/1937106991" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;1937106991" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>微博</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://baidu.com/" title="http:&#x2F;&#x2F;baidu.com&#x2F;" rel="noopener" target="_blank">百度</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">残灯飞雪</span>
+</div>
+
+        
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1269858817&web_id=1269858817"></script>
+  </div>
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"h8JSYrEeNznjLUiV2BJdtA3a-gzGzoHsz","app_key":"xBPayMX9F0UAPVWfBvAFvKXU","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://残灯飞雪.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://blog.mintools.cn/zh-CN/2017-10-18-%E4%BD%BF%E7%94%A8Hexo%E5%9C%A8GitHubPages%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%B8%8A.html";
+    this.page.identifier = "zh-CN/2017-10-18-使用Hexo在GitHubPages上搭建博客上.html";
+    this.page.title = "使用Hexo在GitHub  Pages上搭建部署免费的个人博客网站（上：GitHub搭建）——最详细全面解读教程（没有之一）";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://残灯飞雪.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
